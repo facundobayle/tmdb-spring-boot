@@ -1,4 +1,4 @@
-package com.despegar.dasboot.MoviesApplication;
+package com.despegar.dasboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
