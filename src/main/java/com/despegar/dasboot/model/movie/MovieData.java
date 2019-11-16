@@ -1,15 +1,15 @@
-package com.despegar.dasboot.model;
+package com.despegar.dasboot.model.movie;
 
 import java.util.List;
 
-public class Movie {
+public class MovieData {
 
     private String id;
     private String name;
     private String description;
     private List<String> genderList;
 
-    public Movie(String id, String name, String description, List<String> genderList) {
+    public MovieData(String id, String name, String description, List<String> genderList) {
         this.id = id;
         this.name = name;
         this.description = description;

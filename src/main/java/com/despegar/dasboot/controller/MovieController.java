@@ -1,7 +1,7 @@
 package com.despegar.dasboot.controller;
 
-import com.despegar.dasboot.model.Movie;
-import com.despegar.dasboot.service.MovieService;
+import com.despegar.dasboot.connector.tmdb.dto.MovieDataDTO;
+import com.despegar.dasboot.service.movie.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class MovieController {
     }
 
     @GetMapping(value = "/movies/{id}")
-    public Movie getMovie(@PathVariable String id) {
+    public MovieDataDTO getMovie(@PathVariable String id) {
         return this.movieService.getMovie(id);
     }
 }

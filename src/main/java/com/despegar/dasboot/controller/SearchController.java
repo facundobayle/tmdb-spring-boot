@@ -1,6 +1,6 @@
 package com.despegar.dasboot.controller;
 
-import com.despegar.dasboot.model.Movie;
+import com.despegar.dasboot.model.movie.MovieData;
 import com.despegar.dasboot.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class SearchController {
     }
 
     @GetMapping(value = "/search")
-    public List<Movie> search(@RequestParam(value = "q") String query, @RequestParam Optional<Integer> page) {
+    public List<MovieData> search(@RequestParam(value = "q") String query, @RequestParam Optional<Integer> page) {
         return this.searchService.searchMovie(query, page.orElse(1));
     }
 }
