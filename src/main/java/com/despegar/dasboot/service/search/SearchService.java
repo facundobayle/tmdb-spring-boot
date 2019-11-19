@@ -1,4 +1,4 @@
-package com.despegar.dasboot.service;
+package com.despegar.dasboot.service.search;
 
 import com.despegar.dasboot.model.movie.MovieData;
 import org.springframework.stereotype.Service;

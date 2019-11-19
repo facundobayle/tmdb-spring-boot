@@ -1,5 +1,6 @@
-package com.despegar.dasboot.connector.tmdb;
+package com.despegar.dasboot.connector.tmdb.config;
 
+import com.despegar.dasboot.connector.tmdb.ErrorHandler;
 import com.despegar.dasboot.connector.tmdb.config.TMDBConfig;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;

@@ -1,7 +1,7 @@
 package com.despegar.dasboot.controller;
 
 import com.despegar.dasboot.model.movie.MovieData;
-import com.despegar.dasboot.service.SearchService;
+import com.despegar.dasboot.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
