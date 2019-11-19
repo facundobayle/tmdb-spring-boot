@@ -1,6 +1,6 @@
 package com.despegar.dasboot.model.movie;
 
-import com.despegar.dasboot.model.review.MovieReviews;
+import com.despegar.dasboot.model.review.MovieReview;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class Movie {
     private List<String> genres;
     private List<MovieCast> cast;
     private List<MovieCrew> crew;
-    private List<MovieReviews> reviews;
+    private List<MovieReview> reviews;
     private List<SimilarMovies> similarMovies;
 
     public Movie(
@@ -22,7 +22,7 @@ public class Movie {
             @JsonProperty("genres") List<String> genres,
             @JsonProperty("cast") List<MovieCast> cast,
             @JsonProperty("crew") List<MovieCrew> crew,
-            @JsonProperty("reviews") List<MovieReviews> reviews,
+            @JsonProperty("reviews") List<MovieReview> reviews,
             @JsonProperty("similar_movies") List<SimilarMovies> similarMovies) {
         this.id = id;
         this.name = name;
@@ -62,7 +62,7 @@ public class Movie {
         return similarMovies;
     }
 
-    public List<MovieReviews> getReviews() {
+    public List<MovieReview> getReviews() {
         return reviews;
     }
 }

@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class SimilarMoviewsResultDTO {
+public class SimilarMoviesResultDTO {
 
     private List<SimilarMoviesDTO> results;
 
-    public SimilarMoviewsResultDTO(@JsonProperty("results") List<SimilarMoviesDTO> results) {
+    public SimilarMoviesResultDTO(@JsonProperty("results") List<SimilarMoviesDTO> results) {
         this.results = results;
     }
 

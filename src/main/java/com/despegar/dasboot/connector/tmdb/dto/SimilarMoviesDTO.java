@@ -5,21 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SimilarMoviesDTO {
 
-    private Integer id;
+    private Long id;
     private String title;
     private String releaseDate;
 
     @JsonCreator
     public SimilarMoviesDTO(
-            @JsonProperty("id") Integer id,
+            @JsonProperty("id") Long id,
             @JsonProperty("title") String title,
-            @JsonProperty("releaseDate") String releaseDate) {
+            @JsonProperty("release_date") String releaseDate) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

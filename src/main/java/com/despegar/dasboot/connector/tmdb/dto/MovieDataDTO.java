@@ -16,7 +16,7 @@ public class MovieDataDTO {
     private Integer runtime;
     private Long revenue;
     private BigDecimal voteAverage;
-
+    private List<GenreDTO> genres;
     @JsonCreator
     public MovieDataDTO(
             @JsonProperty("id") Long id,
@@ -27,7 +27,8 @@ public class MovieDataDTO {
             @JsonProperty("release_date") String releaseDate,
             @JsonProperty("runtime") Integer runtime,
             @JsonProperty("revenue") Long revenue,
-            @JsonProperty("vote_average") BigDecimal voteAverage) {
+            @JsonProperty("vote_average") BigDecimal voteAverage,
+            @JsonProperty("genre") List<GenreDTO> genres) {
         this.id = id;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -37,6 +38,7 @@ public class MovieDataDTO {
         this.runtime = runtime;
         this.revenue = revenue;
         this.voteAverage = voteAverage;
+        this.genres = genres;
     }
 
     public Long getId() {
@@ -73,5 +75,9 @@ public class MovieDataDTO {
 
     public BigDecimal getVoteAverage() {
         return voteAverage;
+    }
+
+    public List<GenreDTO> getGenres() {
+        return genres;
     }
 }
