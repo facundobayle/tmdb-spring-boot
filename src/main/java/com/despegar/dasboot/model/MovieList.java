@@ -1,7 +1,7 @@
 package com.despegar.dasboot.model;
 
 
-import com.despegar.dasboot.model.movie.MovieData;
+import com.despegar.dasboot.model.movie.Movie;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class MovieList {
 
     private String user;
     private String name;
-    private List<MovieData> movies ;
+    private List<Movie> movies ;
 
     public String getUser() {
         return user;
@@ -27,11 +27,11 @@ public class MovieList {
         this.name = name;
     }
 
-    public List<MovieData> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<MovieData> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
 }
