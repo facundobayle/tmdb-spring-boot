@@ -4,10 +4,9 @@ import com.despegar.dasboot.connector.tmdb.dto.*;
 import com.despegar.dasboot.model.movie.Movie;
 import com.despegar.dasboot.model.movie.MovieCast;
 import com.despegar.dasboot.model.movie.MovieCrew;
-import com.despegar.dasboot.model.movie.SimilarMovies;
+import com.despegar.dasboot.model.movie.MovieInfo;
 import com.despegar.dasboot.model.review.MovieReview;
 import com.despegar.dasboot.service.review.ReviewTransformer;
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +40,7 @@ public class MovieTransformer {
         List<MovieCast> cast = this.getCast(creditsDTO);
         List<MovieCrew> crew = this.getCrew(creditsDTO);
         List<MovieReview> reviews = this.reviewTransformer.convertMovieReviews(reviewsDTO);
-        List<SimilarMovies> similarMovies = this.getSimilarMovies(similarMoviesResultDTO);
+        List<MovieInfo> similarMovies = this.getSimilarMovies(similarMoviesResultDTO);
 
         return new Movie(
                 String.valueOf(movieDataDTO.getId()),
@@ -72,7 +71,7 @@ public class MovieTransformer {
                 .orElse(Collections.emptyList());
     }
 
-    private List<SimilarMovies> getSimilarMovies(Optional<SimilarMoviesResultDTO> similarMoviesResultDTO) {
+    private List<MovieInfo> getSimilarMovies(Optional<SimilarMoviesResultDTO> similarMoviesResultDTO) {
         return similarMoviesResultDTO
                 .map(similarMoviesResult -> similarMoviesResult.getResults().stream()
                         .limit(5)
@@ -90,11 +89,11 @@ public class MovieTransformer {
         return new MovieCrew(crewDTO.getId(), crewDTO.getJob(), crewDTO.getName(), crewDTO.getProfilePath());
     }
 
-    private SimilarMovies transform(SimilarMoviesDTO similarMoviesDTO) {
+    private MovieInfo transform(SimilarMoviesDTO similarMoviesDTO) {
         String releaseYear = Optional.ofNullable(similarMoviesDTO.getReleaseDate())
                 .map(LocalDate::parse)
                 .map(d -> String.valueOf(d.getYear()))
                 .orElse("");
-        return new SimilarMovies(similarMoviesDTO.getId(), similarMoviesDTO.getTitle(), releaseYear);
+        return new MovieInfo(similarMoviesDTO.getId(), similarMoviesDTO.getTitle(), releaseYear);
     }
 }

@@ -1,23 +1,22 @@
-package com.despegar.dasboot.model.movie;
+package com.despegar.dasboot.connector.tmdb.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SimilarMovies {
+public class SearchMovieDTO {
+
     private Long id;
     private String title;
-
-    @JsonProperty("release_year")
-    private String releaseYear;
+    private String releaseDate;
 
     @JsonCreator
-    public SimilarMovies(
+    public SearchMovieDTO (
             @JsonProperty("id") Long id,
             @JsonProperty("title") String title,
-            @JsonProperty("release_year") String releaseYear) {
+            @JsonProperty("release_date") String releaseDate) {
         this.id = id;
         this.title = title;
-        this.releaseYear = releaseYear;
+        this.releaseDate = releaseDate;
     }
 
     public Long getId() {
@@ -28,7 +27,7 @@ public class SimilarMovies {
         return title;
     }
 
-    public String getReleaseYear() {
-        return releaseYear;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 }

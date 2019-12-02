@@ -33,4 +33,8 @@ public class TMDBConnector {
     public SimilarMoviesResultDTO getSimilarMovies(String id) { return client.getForObject(SIMILAR_URL, SimilarMoviesResultDTO.class, id, token); }
 
     public CreditsDTO getCredits(String id) { return client.getForObject(CREDITS_URL, CreditsDTO.class, id, token); }
+
+    public SearchResultsDTO getSearchResults(String query, Integer page) {
+        return client.getForObject(SEARCH_MOVIE_URL, SearchResultsDTO.class, token, query, page);
+    }
 }

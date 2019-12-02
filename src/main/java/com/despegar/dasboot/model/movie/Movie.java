@@ -13,7 +13,7 @@ public class Movie {
     private List<MovieCast> cast;
     private List<MovieCrew> crew;
     private List<MovieReview> reviews;
-    private List<SimilarMovies> similarMovies;
+    private List<MovieInfo> similarMovies;
 
     public Movie(
             @JsonProperty("id") String id,
@@ -23,7 +23,7 @@ public class Movie {
             @JsonProperty("cast") List<MovieCast> cast,
             @JsonProperty("crew") List<MovieCrew> crew,
             @JsonProperty("reviews") List<MovieReview> reviews,
-            @JsonProperty("similar_movies") List<SimilarMovies> similarMovies) {
+            @JsonProperty("similar_movies") List<MovieInfo> similarMovies) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -58,7 +58,7 @@ public class Movie {
         return cast;
     }
 
-    public List<SimilarMovies> getSimilarMovies() {
+    public List<MovieInfo> getSimilarMovies() {
         return similarMovies;
     }
 
