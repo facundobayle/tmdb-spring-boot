@@ -7,10 +7,10 @@ import com.despegar.dasboot.model.movie.MovieCrew;
 import com.despegar.dasboot.model.movie.MovieInfo;
 import com.despegar.dasboot.model.review.MovieReview;
 import com.despegar.dasboot.service.review.ReviewTransformer;
+import com.despegar.dasboot.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +20,15 @@ import java.util.stream.Collectors;
 public class MovieTransformer {
 
     private ReviewTransformer reviewTransformer;
+    private DateUtils dateUtils;
 
     private static final String DIRECTOR = "director";
 
     @Autowired
-    public MovieTransformer(ReviewTransformer reviewTransformer) {
+    public MovieTransformer(ReviewTransformer reviewTransformer,
+                            DateUtils dateUtils) {
         this.reviewTransformer = reviewTransformer;
+        this.dateUtils = dateUtils;
     }
 
     public Movie convertMovieData(MovieDataDTO movieDataDTO,
@@ -90,10 +93,8 @@ public class MovieTransformer {
     }
 
     private MovieInfo transform(SimilarMoviesDTO similarMoviesDTO) {
-        String releaseYear = Optional.ofNullable(similarMoviesDTO.getReleaseDate())
-                .map(LocalDate::parse)
-                .map(d -> String.valueOf(d.getYear()))
-                .orElse("");
+        Optional<String> releaseDate = Optional.ofNullable(similarMoviesDTO.getReleaseDate());
+        String releaseYear = this.dateUtils.getYearFromDate(releaseDate);
         return new MovieInfo(similarMoviesDTO.getId(), similarMoviesDTO.getTitle(), releaseYear);
     }
 }
