@@ -1,6 +1,7 @@
 package com.despegar.dasboot.service.movie;
 
 import com.despegar.dasboot.connector.tmdb.dto.*;
+import com.despegar.dasboot.controller.MovieController;
 import com.despegar.dasboot.model.movie.Movie;
 import com.despegar.dasboot.model.movie.MovieCast;
 import com.despegar.dasboot.model.movie.MovieCrew;
@@ -8,6 +9,8 @@ import com.despegar.dasboot.model.movie.MovieInfo;
 import com.despegar.dasboot.model.review.MovieReview;
 import com.despegar.dasboot.service.review.ReviewTransformer;
 import com.despegar.dasboot.utils.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class MovieTransformer {
+
+    private Logger logger = LoggerFactory.getLogger(MovieTransformer.class);
 
     private ReviewTransformer reviewTransformer;
     private DateUtils dateUtils;
@@ -36,6 +41,8 @@ public class MovieTransformer {
                                   Optional<ReviewsResultDTO> reviewsDTO,
                                   Optional<SimilarMoviesResultDTO> similarMoviesResultDTO) {
 
+        logger.info("Transforming movie data...");
+
         List<String> genres = movieDataDTO.getGenres()
                 .stream()
                 .map(GenreDTO::getName)
@@ -45,6 +52,7 @@ public class MovieTransformer {
         List<MovieReview> reviews = this.reviewTransformer.convertMovieReviews(reviewsDTO);
         List<MovieInfo> similarMovies = this.getSimilarMovies(similarMoviesResultDTO);
 
+        logger.info("Movie data transformed. Send back movie information.");
         return new Movie(
                 String.valueOf(movieDataDTO.getId()),
                 movieDataDTO.getTitle(),

@@ -2,8 +2,11 @@ package com.despegar.dasboot.service.search;
 
 import com.despegar.dasboot.connector.tmdb.dto.SearchMovieDTO;
 import com.despegar.dasboot.model.movie.MovieInfo;
+import com.despegar.dasboot.service.movie.MovieTransformer;
 import com.despegar.dasboot.utils.DateUtils;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 @Component
 public class SearchTransformer {
 
+    private Logger logger = LoggerFactory.getLogger(SearchTransformer.class);
+
     private DateUtils dateUtils;
 
     @Autowired
@@ -23,6 +28,8 @@ public class SearchTransformer {
     }
 
     public List<MovieInfo> convertSearchMovieResult(List<SearchMovieDTO> searchMovieDTOList) {
+        logger.info("Transform search movie result.");
+
         return searchMovieDTOList.stream().map(this::transform).collect(Collectors.toList());
     }
 

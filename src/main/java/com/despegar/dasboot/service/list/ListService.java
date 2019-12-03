@@ -1,4 +1,4 @@
-package com.despegar.dasboot.service;
+package com.despegar.dasboot.service.list;
 
 import org.springframework.stereotype.Service;
 
