@@ -1,5 +1,6 @@
 package com.despegar.dasboot.connector.tmdb.config;
 
+import com.despegar.dasboot.connector.ContextHeadersInterceptor;
 import com.despegar.dasboot.connector.tmdb.ErrorHandler;
 import com.despegar.dasboot.connector.tmdb.LoggingInterceptor;
 import com.despegar.dasboot.connector.tmdb.config.TMDBConfig;
@@ -30,7 +31,7 @@ public class Config {
         CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(client);
         RestTemplate restTemplate = new RestTemplate(factory);
-        restTemplate.setInterceptors(Arrays.asList(new LoggingInterceptor()));
+        restTemplate.setInterceptors(Arrays.asList(new ContextHeadersInterceptor(), new LoggingInterceptor()));
         restTemplate.setErrorHandler(errorHandler);
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(tmdbConfig.getHost()));
         return restTemplate;

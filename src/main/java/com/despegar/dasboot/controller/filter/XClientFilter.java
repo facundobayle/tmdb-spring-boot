@@ -1,5 +1,6 @@
 package com.despegar.dasboot.controller.filter;
 
+import com.despegar.dasboot.controller.Headers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -15,7 +16,6 @@ import java.io.IOException;
 public class XClientFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(XClientFilter.class);
-    private static final String X_CLIENT = "X-Client";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -25,10 +25,11 @@ public class XClientFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         logger.info("Validating headers");
-        if (req.getHeader(X_CLIENT) == null) {
+        if (req.getHeader(Headers.X_CLIENT) == null) {
             logger.warn("Rejecting request: X-Client header not present");
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
+            logger.info("Valid headers, continue...");
             chain.doFilter(req, res);
         }
     }

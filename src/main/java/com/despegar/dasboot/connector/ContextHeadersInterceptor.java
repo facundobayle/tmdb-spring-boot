@@ -1,7 +1,6 @@
-package com.despegar.dasboot.connector.tmdb;
+package com.despegar.dasboot.connector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.despegar.dasboot.controller.context.Context;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -9,13 +8,11 @@ import org.springframework.http.client.ClientHttpResponse;
 
 import java.io.IOException;
 
-public class LoggingInterceptor implements ClientHttpRequestInterceptor {
-
-    private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
+public class ContextHeadersInterceptor implements ClientHttpRequestInterceptor {
 
     @Override
     public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes, ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
-        logger.info(String.format("Call %s %s, with headers: %s", httpRequest.getMethodValue(), httpRequest.getURI().toString(), httpRequest.getHeaders()));
+        Context.getRequestContext().getHeaders().forEach((k, v) -> httpRequest.getHeaders().add(k, v));
         return clientHttpRequestExecution.execute(httpRequest, bytes);
     }
 }
