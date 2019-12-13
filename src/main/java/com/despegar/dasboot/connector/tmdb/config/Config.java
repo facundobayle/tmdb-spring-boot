@@ -1,6 +1,7 @@
 package com.despegar.dasboot.connector.tmdb.config;
 
 import com.despegar.dasboot.connector.tmdb.ErrorHandler;
+import com.despegar.dasboot.connector.tmdb.LoggingInterceptor;
 import com.despegar.dasboot.connector.tmdb.config.TMDBConfig;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,6 +12,9 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Component
 public class Config {
@@ -26,6 +30,7 @@ public class Config {
         CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(client);
         RestTemplate restTemplate = new RestTemplate(factory);
+        restTemplate.setInterceptors(Arrays.asList(new LoggingInterceptor()));
         restTemplate.setErrorHandler(errorHandler);
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(tmdbConfig.getHost()));
         return restTemplate;
