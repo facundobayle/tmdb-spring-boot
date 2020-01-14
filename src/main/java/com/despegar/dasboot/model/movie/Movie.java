@@ -14,6 +14,7 @@ public class Movie {
     private List<MovieCrew> crew;
     private List<MovieReview> reviews;
     private List<MovieInfo> similarMovies;
+    private boolean topRated;
 
     public Movie(
             @JsonProperty("id") String id,
@@ -23,7 +24,8 @@ public class Movie {
             @JsonProperty("cast") List<MovieCast> cast,
             @JsonProperty("crew") List<MovieCrew> crew,
             @JsonProperty("reviews") List<MovieReview> reviews,
-            @JsonProperty("similar_movies") List<MovieInfo> similarMovies) {
+            @JsonProperty("similar_movies") List<MovieInfo> similarMovies,
+            @JsonProperty("top_rated") boolean topRated) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,6 +34,7 @@ public class Movie {
         this.crew = crew;
         this.reviews = reviews;
         this.similarMovies = similarMovies;
+        this.topRated = topRated;
     }
 
     public String getName() {
@@ -64,5 +67,9 @@ public class Movie {
 
     public List<MovieReview> getReviews() {
         return reviews;
+    }
+
+    public boolean isTopRated() {
+        return topRated;
     }
 }

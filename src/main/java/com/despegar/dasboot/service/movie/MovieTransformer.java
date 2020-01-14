@@ -7,6 +7,7 @@ import com.despegar.dasboot.model.movie.MovieCrew;
 import com.despegar.dasboot.model.movie.MovieInfo;
 import com.despegar.dasboot.model.review.MovieReview;
 import com.despegar.dasboot.service.review.ReviewTransformer;
+import com.despegar.dasboot.snapshot.TopRatedSnapshot;
 import com.despegar.dasboot.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +26,17 @@ public class MovieTransformer {
 
     private ReviewTransformer reviewTransformer;
     private DateUtils dateUtils;
+    private TopRatedSnapshot topRatedSnapshot;
 
     private static final String DIRECTOR = "director";
 
     @Autowired
     public MovieTransformer(ReviewTransformer reviewTransformer,
-                            DateUtils dateUtils) {
+                            DateUtils dateUtils,
+                            TopRatedSnapshot topRatedSnapshot) {
         this.reviewTransformer = reviewTransformer;
         this.dateUtils = dateUtils;
+        this.topRatedSnapshot = topRatedSnapshot;
     }
 
     public Movie convertMovieData(MovieDataDTO movieDataDTO,
@@ -50,6 +54,7 @@ public class MovieTransformer {
         List<MovieCrew> crew = this.getCrew(creditsDTO);
         List<MovieReview> reviews = this.reviewTransformer.convertMovieReviews(reviewsDTO);
         List<MovieInfo> similarMovies = this.getSimilarMovies(similarMoviesResultDTO);
+        boolean topRated = topRatedSnapshot.isTopRated(movieDataDTO.getId());
 
         logger.info("Movie data transformed. Send back movie information.");
         return new Movie(
@@ -60,7 +65,8 @@ public class MovieTransformer {
                 cast,
                 crew,
                 reviews,
-                similarMovies
+                similarMovies,
+                topRated
         );
     }
 

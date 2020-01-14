@@ -17,6 +17,7 @@ public class TMDBConnector {
     private static final String SIMILAR_URL = "/movie/{id}/similar?api_key={token}";
     private static final String CREDITS_URL = "/movie/{id}/credits?api_key={token}";
     private static final String SEARCH_MOVIE_URL = "/search/movie?api_key={token}&query={query}&page={page}";
+    private static final String TOP_RATED_URL = "/movie/top_rated?api_key={token}";
 
     private RestTemplate client;
     private String token;
@@ -50,5 +51,10 @@ public class TMDBConnector {
     public SearchResultsDTO getSearchResults(String query, Integer page) {
         logger.info("Calling TMDB search result service with query: {}", query);
         return client.getForObject(SEARCH_MOVIE_URL, SearchResultsDTO.class, token, query, page);
+    }
+
+    public TopRatedDTO getTopRated() {
+        logger.info("Calling TMDB top rated movies service");
+        return client.getForObject(TOP_RATED_URL, TopRatedDTO.class, token);
     }
 }
