@@ -7,6 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController //@Controller + @ResponseBody
 public class MovieController {
@@ -23,6 +28,8 @@ public class MovieController {
     @GetMapping(value = "/movies/{id}")
     public Movie getMovie(@PathVariable String id) {
         logger.info("getMovie request received for id {}", id);
-        return this.movieService.getMovie(id);
+        return this.movieService
+                .getMovie(id)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Movie not found"));
     }
 }

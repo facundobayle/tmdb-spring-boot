@@ -10,4 +10,8 @@ public class Context {
     public static RequestContext getRequestContext() {
         return state.get();
     }
+
+    public static void clear() {
+        state.remove();
+    }
 }

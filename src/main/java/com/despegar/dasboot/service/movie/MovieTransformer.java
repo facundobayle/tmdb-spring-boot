@@ -1,7 +1,6 @@
 package com.despegar.dasboot.service.movie;
 
 import com.despegar.dasboot.connector.tmdb.dto.*;
-import com.despegar.dasboot.controller.MovieController;
 import com.despegar.dasboot.model.movie.Movie;
 import com.despegar.dasboot.model.movie.MovieCast;
 import com.despegar.dasboot.model.movie.MovieCrew;
