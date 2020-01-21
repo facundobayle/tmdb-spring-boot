@@ -1,5 +1,6 @@
 package com.despegar.dasboot.service.movie;
 
+import com.despegar.dasboot.Performance;
 import com.despegar.dasboot.connector.exception.APIException;
 import com.despegar.dasboot.connector.exception.ServiceException;
 import com.despegar.dasboot.connector.tmdb.TMDBConnector;
@@ -34,6 +35,7 @@ public class MovieService {
         this.asyncTaskExecutor = commonThreadPoolTaskExecutor;
     }
 
+    @Performance
     public Optional<Movie> getMovie(String id) {
         MovieDataDTO movieData =  this.tmdbConnector.getMovie(id);
         CompletableFuture<Optional<CreditsDTO>> credits = CompletableFuture.supplyAsync(() -> getCredits(id), asyncTaskExecutor);
