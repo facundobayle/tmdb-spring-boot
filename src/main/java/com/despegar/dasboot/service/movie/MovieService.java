@@ -9,6 +9,7 @@ import com.despegar.dasboot.model.movie.Movie;
 import com.despegar.dasboot.service.review.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,7 @@ public class MovieService {
     }
 
     @Performance
+    @Cacheable(value = "movies", unless = "!#result.topRated")
     public Optional<Movie> getMovie(String id) {
         MovieDataDTO movieData =  this.tmdbConnector.getMovie(id);
         CompletableFuture<Optional<CreditsDTO>> credits = CompletableFuture.supplyAsync(() -> getCredits(id), asyncTaskExecutor);
