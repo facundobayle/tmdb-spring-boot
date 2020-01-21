@@ -1,45 +1,56 @@
 package com.despegar.dasboot.controller;
 
 import com.despegar.dasboot.model.list.ListInfo;
-import com.despegar.dasboot.model.MovieList;
+import com.despegar.dasboot.model.list.UserList;
 import com.despegar.dasboot.model.list.Movies;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.despegar.dasboot.service.list.ListService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController //@Controller + @ResponseBody
 public class ListController {
+    private ListService service;
 
-    private Logger logger = LoggerFactory.getLogger(ListController.class);
+    @Autowired
+    public ListController(ListService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = "/lists/{id}")
-    public MovieList getList(@PathVariable String id) {
-        logger.info("getList request received for id {}", id);
-        return new MovieList();
-    }
-
-    @PostMapping(value = "/lists")
-    public MovieList create(@RequestBody ListInfo listInfo) {
-        logger.info("createList request received with body: {}", listInfo);
-        return new MovieList();
-    }
-
-    @PostMapping(value = "/lists/{id}")
-    public MovieList delete(@PathVariable(value = "id") String listId) {
-        logger.info("deleteList request received for listId {}", listId);
-        return new MovieList();
-    }
-
-    @DeleteMapping(value = "/lists/{listId}/movies")
-    public MovieList deleteFromList(@RequestBody Movies movies, @PathVariable(value = "listId") String listId) {
-        logger.info("deleteMovieFromList request received for listId {}, with body: {}", listId, movies);
-        return new MovieList();
+    public UserList getList(@PathVariable(value = "id") String id) {
+        return service
+                .getList(id)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "List not found"));
     }
 
     @PostMapping(value = "/lists/{listId}/movies")
-    public MovieList addToList(@RequestBody Movies movies, @PathVariable(value = "listId") String listId) {
-        logger.info("addMovieToList request received for listId {}, with body: {}", listId, movies);
-        return new MovieList();
+    public UserList addToList(
+            @RequestBody Movies movies, @PathVariable(value = "listId") String listId) {
+        return service
+                .addToList(listId, movies.getIds())
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "List not found"));
     }
 
+    @DeleteMapping(value = "/lists/{listId}/movies")
+    public UserList deleteFromList(
+            @RequestBody Movies movies, @PathVariable(value = "listId") String listId) {
+        return service
+                .deleteFromList(listId, movies.getIds())
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "List not found"));
+    }
+
+    @DeleteMapping(value = "/lists/{id}")
+    public UserList delete(@PathVariable(value = "id") String listId) {
+        return service
+                .delete(listId)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "List not found"));
+    }
+
+    @PostMapping(value = "/lists")
+    public UserList create(@RequestBody ListInfo listInfo) {
+        return service.create(listInfo);
+    }
 }

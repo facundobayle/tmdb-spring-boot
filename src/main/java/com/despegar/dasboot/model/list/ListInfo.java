@@ -1,23 +1,22 @@
 package com.despegar.dasboot.model.list;
 
-public class ListInfo {
+import com.fasterxml.jackson.annotation.JsonCreator;
 
+public class ListInfo {
     private String user;
     private String name;
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
+    @JsonCreator
+    public ListInfo(String user, String name) {
         this.user = user;
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUser() {
+        return user;
     }
 }
