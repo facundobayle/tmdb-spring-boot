@@ -1,4 +1,4 @@
-package com.despegar.dasboot.controller.context;
+package com.despegar.dasboot.context;
 
 public class Context {
     private static final ThreadLocal<RequestContext> state = new ThreadLocal<>();

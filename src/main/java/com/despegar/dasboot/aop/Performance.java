@@ -1,4 +1,4 @@
-package com.despegar.dasboot;
+package com.despegar.dasboot.aop;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

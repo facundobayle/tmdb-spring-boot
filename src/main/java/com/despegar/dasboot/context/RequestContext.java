@@ -1,4 +1,4 @@
-package com.despegar.dasboot.controller.context;
+package com.despegar.dasboot.context;
 
 import java.util.Map;
 

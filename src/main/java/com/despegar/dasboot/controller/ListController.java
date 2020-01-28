@@ -43,10 +43,8 @@ public class ListController {
     }
 
     @DeleteMapping(value = "/lists/{id}")
-    public UserList delete(@PathVariable(value = "id") String listId) {
-        return service
-                .delete(listId)
-                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "List not found"));
+    public void delete(@PathVariable(value = "id") String listId) {
+        service.delete(listId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "List not found"));
     }
 
     @PostMapping(value = "/lists")

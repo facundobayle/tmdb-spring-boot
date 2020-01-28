@@ -1,6 +1,6 @@
 package com.despegar.dasboot.service.movie;
 
-import com.despegar.dasboot.Performance;
+import com.despegar.dasboot.aop.Performance;
 import com.despegar.dasboot.connector.exception.APIException;
 import com.despegar.dasboot.connector.exception.ServiceException;
 import com.despegar.dasboot.connector.tmdb.TMDBConnector;
@@ -8,7 +8,6 @@ import com.despegar.dasboot.connector.tmdb.dto.*;
 import com.despegar.dasboot.model.movie.Movie;
 import com.despegar.dasboot.service.review.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.stereotype.Service;

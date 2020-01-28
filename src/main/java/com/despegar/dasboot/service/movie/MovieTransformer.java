@@ -14,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,7 +26,7 @@ public class MovieTransformer {
     private DateUtils dateUtils;
     private TopRatedSnapshot topRatedSnapshot;
 
-    private static final String DIRECTOR = "director";
+    private static final Set<String> jobs = new HashSet<>(Arrays.asList("director", "novel", "screenplay"));
 
     @Autowired
     public MovieTransformer(ReviewTransformer reviewTransformer,
@@ -81,7 +79,7 @@ public class MovieTransformer {
     private List<MovieCrew> getCrew(Optional<CreditsDTO> creditsDTO) {
         return creditsDTO
                 .map(credits -> credits.getCrew().stream()
-                        .filter(cr -> DIRECTOR.equals(cr.getJob().toLowerCase())) // for now only director
+                        .filter(cr -> jobs.contains(cr.getJob().toLowerCase())) // for now only director
                         .map(this::transform)
                         .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());

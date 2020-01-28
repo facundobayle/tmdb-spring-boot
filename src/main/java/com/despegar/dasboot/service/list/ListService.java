@@ -10,21 +10,27 @@ import com.despegar.dasboot.repository.Lists;
 import com.despegar.dasboot.repository.MovieItem;
 import com.despegar.dasboot.repository.MovieList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
 public class ListService {
     private Lists lists;
     private TMDBConnector connector;
+    private AsyncTaskExecutor asyncTaskExecutor;
+
 
     @Autowired
-    public ListService(Lists lists, TMDBConnector connector) {
+    public ListService(Lists lists, TMDBConnector connector, AsyncTaskExecutor commonThreadPoolTaskExecutor) {
         this.lists = lists;
         this.connector = connector;
+        this.asyncTaskExecutor = commonThreadPoolTaskExecutor;
     }
 
     public Optional<UserList> getList(String id) {
@@ -51,11 +57,11 @@ public class ListService {
     private UserList convert(MovieList list) {
         List<UserListItem> items =
                 list.getItems().stream()
-                        .map(
-                                i -> {
-                                    MovieDataDTO movie = connector.getMovie(i.getId());
-                                    return convert(i, movie);
-                                })
+                        .map(i ->
+                                CompletableFuture.supplyAsync(() -> connector.getMovie(i.getId()), asyncTaskExecutor)
+                                        .thenApply(m -> convert(i, m)))
+                        .map(CompletableFuture::join)
+                        .filter(Objects::nonNull)
                         .collect(Collectors.toList());
         return new UserList(list.getId(), list.getUser(), list.getName(), items, list.getCreated());
     }

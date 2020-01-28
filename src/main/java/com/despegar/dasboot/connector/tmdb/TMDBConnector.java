@@ -1,6 +1,6 @@
 package com.despegar.dasboot.connector.tmdb;
 
-import com.despegar.dasboot.Performance;
+import com.despegar.dasboot.aop.Performance;
 import com.despegar.dasboot.connector.tmdb.config.TMDBConfig;
 import com.despegar.dasboot.connector.tmdb.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.despegar.dasboot.task;
 
-import com.despegar.dasboot.controller.context.Context;
-import com.despegar.dasboot.controller.context.RequestContext;
+import com.despegar.dasboot.context.Context;
+import com.despegar.dasboot.context.RequestContext;
 import org.slf4j.MDC;
 import org.springframework.core.task.TaskDecorator;
 

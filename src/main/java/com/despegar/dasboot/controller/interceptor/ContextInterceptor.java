@@ -1,8 +1,8 @@
 package com.despegar.dasboot.controller.interceptor;
 
 import com.despegar.dasboot.controller.Headers;
-import com.despegar.dasboot.controller.context.Context;
-import com.despegar.dasboot.controller.context.RequestContext;
+import com.despegar.dasboot.context.Context;
+import com.despegar.dasboot.context.RequestContext;
 import org.jboss.logging.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
 

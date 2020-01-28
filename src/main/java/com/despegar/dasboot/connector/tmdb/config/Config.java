@@ -1,9 +1,8 @@
 package com.despegar.dasboot.connector.tmdb.config;
 
-import com.despegar.dasboot.connector.ContextHeadersInterceptor;
+import com.despegar.dasboot.connector.interceptor.ContextHeadersInterceptor;
 import com.despegar.dasboot.connector.tmdb.ErrorHandler;
-import com.despegar.dasboot.connector.tmdb.LoggingInterceptor;
-import com.despegar.dasboot.connector.tmdb.config.TMDBConfig;
+import com.despegar.dasboot.connector.interceptor.LoggingInterceptor;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
