@@ -1,11 +1,13 @@
-package com.despegar.dasboot.repository;
+package com.despegar.dasboot.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.Set;
 
+@Document("movielists")
 public class MovieList {
     private String id;
     private String user;
@@ -15,8 +17,7 @@ public class MovieList {
     private LocalDate created;
 
     @JsonCreator
-    public MovieList(String id, String user, String name, Set<MovieItem> items, LocalDate created) {
-        this.id = id;
+    public MovieList(String user, String name, Set<MovieItem> items, LocalDate created) {
         this.user = user;
         this.name = name;
         this.items = items;
@@ -25,17 +26,6 @@ public class MovieList {
 
     public String getName() {
         return name;
-    }
-
-    public void removeItem(String movieId) {
-        items.stream()
-                .filter(i -> i.getId().equalsIgnoreCase(movieId))
-                .findFirst()
-                .ifPresent(m -> items.remove(m));
-    }
-
-    public void addItem(MovieItem item) {
-        items.add(item);
     }
 
     public LocalDate getCreated() {

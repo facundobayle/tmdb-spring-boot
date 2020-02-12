@@ -1,4 +1,4 @@
-package com.despegar.dasboot.repository;
+package com.despegar.dasboot.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
