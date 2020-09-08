@@ -2,15 +2,12 @@ package com.despegar.dasboot.service.search;
 
 import com.despegar.dasboot.connector.tmdb.dto.SearchMovieDTO;
 import com.despegar.dasboot.model.movie.MovieInfo;
-import com.despegar.dasboot.service.movie.MovieTransformer;
 import com.despegar.dasboot.utils.DateUtils;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
